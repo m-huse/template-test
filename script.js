@@ -7,14 +7,14 @@ const loader = document.getElementById ('loader');
 
 let apiQuotes = [];
 
-// Show loading
-function loading() {
+
+function showloadingspinner() {
     loader.hidden = false;
     quoteContainer.hidden = true; 
 }
 
-// Hide loading 
-function complete () {
+
+function hideloadingspinner () {
     quoteContainer.hidden = false; 
     loader.hidden = true; 
 }
@@ -38,19 +38,19 @@ function newQuote() {
     }
     // Set quote, Hide Loader
     quoteText.textContent = quote.text;
-    complete();
+    hideloadingspinner();
 }
 
 // Get  quotes from API 
 async function  getQuotes() {
-    loading();
+    showloadingspinner();
     const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
     try {
         const response = await fetch (apiUrl);
         apiQuotes = await response.json();
         newQuote();
     } catch (error) {
-        // Catch Error Here
+        getQuotes();
     }
 }
 
